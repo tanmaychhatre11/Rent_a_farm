@@ -1,0 +1,62 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+.jumbotron{
+    margin-top:3px;
+    padding-left: 100px;
+    background-color: rgb(32, 224, 14);
+    color: white;
+    font-weight: bolder;
+}
+
+#titles{
+    font-family:Arial, Helvetica, sans-serif; 
+    color: #2e8668; 
+    font-weight:400;
+    text-align: center;
+    text-decoration: underline rgb(32, 224, 14);
+    text-underline-offset: 10px;
+    padding: 15px 15px 15px 15px 
+}
+
+#serviceCard{
+    margin: 50px 20px 50px 20px;
+    padding: 15px 15px 15px 15px;
+    width: 25rem;
+    border-color: #2e8668;
+    border-width: 5px;
+    transition:0.3s
+}
+
+#serviceCard:hover{
+    transform: scale(1.1);
+    border-color: rgb(32, 224, 14);
+}
+
+.card-img-top{
+    height: 200px;
+    width: 200px;
+    align-self: center;
+}
+
+.card-title{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2e8668;
+    font-weight: 600;
+    text-align: center;
+    font-size: 30px;
+}
+
+.card-text{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 18px;
+}
+
+.card-footer.a{
+    background-color: white;
+    font-size: 30px;
+    padding-top: 20px;
+}
