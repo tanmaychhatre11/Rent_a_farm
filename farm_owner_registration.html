@@ -1,0 +1,315 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Owner Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Farm Owner Registration</h1>
+    <form action="/farm_owner_registration" method="POST">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwnerRegistration</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/farm_owner_registration" method="post">
+            <h2>Owner Registration</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="name">Full Name</label>
+                    <input type="text" placeholder="Enter full name" name="name" required>
+                </div>
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Enter username" name="uname" required>
+                </div>
+                <div class="input-box">
+                    <label for="Email">Email</label>
+                    <input type="email" placeholder="Enter valid email id" name="email" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="input-box">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" placeholder="Confirm Password" name="cpassword" required>
+                </div>
+                <div class="input-box">
+                    <label for="contact-number">Contact Number</label>
+                    <input type="tel" placeholder="Enter contact number" name="number" required>
+                </div>
+            </div>
+            <div class="land">
+                <div class="input-box">
+                    <label for="location">Address of Plot</label>
+                    <input type="text" placeholder="Provide plot address" name="land" required>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container{
+    max-width: 650px;
+    padding: 28px;
+    margin: 0 28px;
+    box-shadow: 0 15px 20px #ABB2B9;
+}
+
+h2{
+    font-size: 26px;
+    font-weight: 600;
+    text-align: left;
+    color: #2f4f4f;
+    padding-bottom: 8px;
+    border-bottom: 1px solid silver;
+}
+
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+.input-box:nth-child(2n){
+    justify-content: end;
+}
+
+.input-box label{
+    width: 95%;
+    color: #2f4f4f;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.input-box input{
+    height: 40px;
+    width: 95%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.input-box input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.land{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #aa076b, #61045f);
+}
+
+.button-container button:hover{
+    background-image: linear-gradient(to right, #61045f, #aa076b);
+}
+</style>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #64b3f4, #c2e59c);
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .input-box {
+            width: calc(50% - 10px);
+            position: relative;
+        }
+
+        .input-box label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-box input:focus {
+            border-color: #007bff;
+        }
+
+        .message {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/farm_owner_registration" method="post">
+            <h2>Owner Registration</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="name">Full Name</label>
+                    <input type="text" placeholder="Enter full name" name="name" required>
+                </div>
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Enter username" name="uname" required>
+                </div>
+                <div class="input-box">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Enter valid email id" name="email" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" id="password" name="password" required>
+                </div>
+                <div class="input-box">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" placeholder="Confirm Password" id="cpassword" name="cpassword" required onkeyup="checkPasswordMatch()">
+                    <span id="message" class="message"></span>
+                </div>
+                <div class="input-box">
+                    <label for="contact-number">Contact Number</label>
+                    <input type="tel" placeholder="Enter contact number" name="number" required>
+                </div>
+                <!-- <div class="input-box">
+                    <label for="location">Your Address</label>
+                    <input type="text" placeholder="Provide home address" name="land" required>
+                </div>-->
+            </div>
+            <div class="button-container">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function checkPasswordMatch() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("cpassword").value;
+            var message = document.getElementById("message");
+
+            if (password !== confirmPassword) {
+                message.innerHTML = "Passwords do not match!";
+            } else {
+                message.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
+

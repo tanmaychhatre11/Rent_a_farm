@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            animation: gradient-animation 10s ease infinite alternate;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .logout-btn {
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc4125;
+        }
+
+        /* Search Button Styles */
+        .search-btn {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Lands Working On Styles */
+        .lands-working-on {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lands-working-on ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .lands-working-on li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        /* Input Styles */
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        /* Map Container Styles */
+        #map {
+            height: 400px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        /* Available Land Locations Styles */
+        .available-land-locations {
+            margin-top: 20px;
+        }
+
+        .available-land-locations h2 {
+            margin-bottom: 10px;
+        }
+
+        .available-land-locations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .available-land-locations li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .available-land-locations li strong {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome, Farmer!</h1>
+            <!-- Logout Button -->
+            <form action="/logout" method="post">
+                <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </form>
+        </header>
+        
+        <!-- Search Button -->
+        <button id="searchBtn" class="search-btn">Search available land locations</button>
+
+        <!-- Available Land Locations -->
+        <div class="available-land-locations">
+            <h2>Available Land Locations</h2>
+            <ul id="availableLandList"></ul>
+        </div>
+
+        <!-- Map Container -->
+        <div id="map"></div>
+    </div>
+
+    <!-- Leaflet JavaScript Library -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Leaflet Control Geocoder Plugin -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        var map = L.map('map').setView([18.4961, 73.8384], 13); // Set default view to first location
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var geocoder = L.Control.geocoder({
+            defaultMarkGeocode: false
+        }).addTo(map);
+
+        // Handle Geocoding Result
+        geocoder.on('markgeocode', function(e) {
+            var bbox = e.geocode.bbox;
+            var center = e.geocode.center;
+            map.fitBounds(bbox);
+            L.marker(center).addTo(map);
+        });
+
+        // Define additional locations
+        var additionalLocations = [
+            { latitude: 18.5074, longitude: 73.8077, contact_number: "8767113635", size: 15, owner_name: "Tanmay Chhatre" },
+            { latitude: 18.5089, longitude: 73.9259, contact_number: "8657008398", size: 20, owner_name: "Deep Oak" }
+        ];
+
+        // Function to update the list of available land locations below the map
+        function updateAvailableLandList(locations) {
+            var availableLandList = document.getElementById('availableLandList');
+            availableLandList.innerHTML = ''; // Clear previous list
+            locations.forEach(function(location, index) {
+                // Convert coordinates to human-readable address
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.latitude}&lon=${location.longitude}&zoom=18&addressdetails=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        var address = data.display_name; // Get human-readable address
+                        var listItem = document.createElement('li');
+                        listItem.innerHTML = '<strong>' + (index + 1) + '. Location:</strong> ' + address + '<br>' +
+                            '<strong>Size:</strong> ' + location.size + ' acres<br>' +
+                            '<strong>Owner Name:</strong> ' + location.owner_name + '<br>' +
+                            '<strong>Contact Number:</strong> ' + location.contact_number;
+                        availableLandList.appendChild(listItem);
+                    })
+                    .catch(error => console.error('Error fetching address:', error));
+            });
+        }
+
+        // Display markers for additional locations on the map
+        additionalLocations.forEach(function(location) {
+            var marker = L.marker([location.latitude, location.longitude]).addTo(map);
+        });
+
+        // Handle click event for "SEARCH AVAILABLE LAND LOCATIONS" button
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            updateAvailableLandList(additionalLocations);
+        });
+    </script>
+</body>
+</html>

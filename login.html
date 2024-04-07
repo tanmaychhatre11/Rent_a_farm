@@ -1,0 +1,270 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Login</h1>
+    Add login form here
+</body>
+</html> -->
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/login" method="post">
+            <h2>Login</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Enter username" name="uname" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+            </div>
+            <div class="land">
+            <div class="button-container">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container{
+    max-width: 650px;
+    padding: 28px;
+    margin: 0 28px;
+    box-shadow: 0 15px 20px #ABB2B9;
+}
+
+h2{
+    font-size: 26px;
+    font-weight: 600;
+    text-align: left;
+    color: #2f4f4f;
+    padding-bottom: 8px;
+    border-bottom: 1px solid silver;
+}
+
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+.input-box:nth-child(2n){
+    justify-content: end;
+}
+
+.input-box label{
+    width: 95%;
+    color: #2f4f4f;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.input-box input{
+    height: 40px;
+    width: 95%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.input-box input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.land{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #aa076b, #61045f);
+}
+
+.button-container button:hover{
+    background-image: linear-gradient(to right, #61045f, #aa076b);
+}
+</style>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form action="/login" method="post">
+            <h2>Login</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Enter username" name="uname" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+            </div>
+            <div class="land">
+                <div class="button-container">
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(to bottom right, #2980b9, #6dd5fa);
+    }
+
+    .container {
+        max-width: 400px;
+        padding: 30px;
+        margin: 0 auto;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: #fff;
+        font-family: 'Poppins', sans-serif;
+        animation: fadeInUp 0.5s ease;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .input-box {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .input-box label {
+        color: #666;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+        font-size: 16px;
+        background-color: #f9f9f9;
+    }
+
+    .input-box input:focus,
+    .input-box input:valid {
+        border-color: #2980b9;
+        outline: none;
+    }
+
+    .land {
+        text-align: center;
+    }
+
+    .button-container button {
+        width: 100%;
+        height: 50px;
+        background-color: #2980b9;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .button-container button:hover {
+        background-color: #3498db;
+    }
+</style>
+</html>

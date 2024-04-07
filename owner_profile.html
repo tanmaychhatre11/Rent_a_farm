@@ -1,0 +1,268 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Owner Profile</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <style>
+            /* Global Styles */
+            body {
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                background: linear-gradient(135deg, #00d2ff, #3ad53f);
+                animation: gradient-animation 10s ease infinite alternate;
+            }
+
+            @keyframes gradient-animation {
+                0% {
+                    background-position: 0% 50%;
+                }
+                100% {
+                    background-position: 100% 50%;
+                }
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                background-color: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(5px);
+            }
+
+            /* Header Styles */
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                border-radius: 10px 10px 0 0;
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+
+            .profile-pic {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            .logout-btn {
+                background-color: #ff6347;
+                color: #fff;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .logout-btn:hover {
+                background-color: #cc4125;
+            }
+
+            /* Land Registration Form Styles */
+            .register-land {
+                margin-top: 20px;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+
+            .register-btn {
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .register-btn:hover {
+                background-color: #45a049;
+            }
+
+            /* Lands Registered Styles */
+            .registered-lands {
+                margin-top: 20px;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+
+            .registered-lands ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .registered-lands li {
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #fff;
+            }
+
+            /* See Previously Registered Lands Button Styles */
+            .see-previous-btn {
+                background-color: #3ad53f;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .see-previous-btn:hover {
+                background-color: #32cd32;
+            }
+
+
+            /* Input Styles */
+            input[type="text"],
+            input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+            }
+
+            input[type="text"]:focus,
+            input[type="number"]:focus {
+                outline: none;
+                border-color: #4caf50;
+            }
+
+            #map {
+                height: 400px; /* Adjust the height as needed */
+                width: 100%;
+                margin-top: 20px;
+                border-radius: 10px;
+                overflow: hidden; /* Prevent map overflow */
+            }
+
+            /* Ensure Leaflet map tiles fill the container */
+            .leaflet-container {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Welcome, Owner!</h1>
+                <img src="static\img\owner_profpic.jpeg" alt="Profile Picture" class="profile-pic">
+                <!-- Logout Button -->
+                <form action="/logout" method="post">
+                    <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
+            </header>
+            
+            <!-- Land Registration Form -->
+            <div class="register-land">
+                <h2>Register Land</h2>
+                <form id="land-form">
+                    <label for="location">Location (Address):</label><br>
+                    <input type="text" id="location" name="location" required><br>
+                    <label for="size">Size (in acres):</label><br>
+                    <input type="number" id="size" name="size" required><br>
+                    <label for="owner_name">Legal Owner Name:</label><br>
+                    <input type="text" id="owner_name" name="owner_name" required><br>
+                    <button class="register-btn"><i class="fas fa-landmark"></i> Register Land</button>
+                </form>
+            </div>
+            
+            <!-- Lands Registered -->
+            <div class="registered-lands">
+                <h2>Lands Registered</h2>
+                <ul id="registered-lands-list"></ul>
+            </div>
+
+            <!-- Button to see previously registered lands -->
+            <button id="previously-registered-btn" class="see-previous-btn">See previously registered lands</button>
+
+
+            <!-- Leaflet Map -->
+            <div id="map"></div>
+        </div>
+
+        <!-- Leaflet CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-control-geocoder/1.13.1/Control.Geocoder.min.js"></script>
+
+        <!-- Leaflet Map Script -->
+        <!-- Leaflet Map Script -->
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Function to add marker on map
+    function addMarker(location) {
+        L.marker(location).addTo(map);
+    }
+
+    // Function to update the list of registered lands below the map
+    function updateRegisteredLandsList(land) {
+        var registeredLandsList = document.getElementById('registered-lands-list');
+        var listItem = document.createElement('li');
+        listItem.innerHTML = `<strong>Location:</strong> ${land.location}<br>` +
+            `<strong>Size:</strong> ${land.size} acres<br>` +
+            `<strong>Owner Name:</strong> ${land.owner_name}`;
+        registeredLandsList.appendChild(listItem);
+    }
+
+    // Handle form submission
+    document.getElementById('land-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form data
+        var location = document.getElementById('location').value;
+        var size = document.getElementById('size').value;
+        var ownerName = document.getElementById('owner_name').value;
+
+        // Use Leaflet geocoding to convert address to coordinates
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + location)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.length > 0) {
+                var latitude = parseFloat(data[0].lat);
+                var longitude = parseFloat(data[0].lon);
+
+                // Add marker on map for the new registered location
+                addMarker([latitude, longitude]);
+
+                // Update the list of registered lands below the map
+                updateRegisteredLandsList({ location: location, size: size, owner_name: ownerName });
+
+            } else {
+                alert('Location not found. Please enter a valid address.');
+            }
+        })
+        .catch(function(error) {
+            console.log('Error:', error);
+        });
+    });
+
+
+    // Add marker for the first additional location
+    var additionalLocation = [18.5074, 73.8077];
+    addMarker(additionalLocation);
+</script>        
+        </body>
+    </html>
